@@ -1,5 +1,69 @@
-<html><head><title>DS Quiz </title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
-<script src="js/quiz.js"></script>
-</head><body>Welcome to the quiz<br /></body>
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+  <style>
+    answers-tag {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    question-tag {
+        padding: 2em;
+        border-radius: 1em;
+        background: #f90304;
+        font-family: arial;
+        text-align: center;
+        box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.75);
+        width: 30rem;
+        height: 20rem;
+        background-color: lightgray;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color:  black;
+    }
+
+    answer-tag {
+      padding: 2em;
+      border-radius: 25px;
+      background: #f90304;
+      font-family: arial;
+      color: white;
+      text-align: center;
+      box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.75);
+    }
+    
+    answer-tag.active {
+        background: rgba(171, 145, 68, 1);
+        font-size: 1.5em;
+    }
+
+    h3 {
+      padding: 2em 0;
+      background: white;
+      color: black;
+    }
+
+    p {
+      font-size: 24px;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+   </style>
+
+    <script src="question-tag.js"></script>
+    <script src="answer-tag.js"></script>
+    <script src="quiz.js"></script>
+    <script type="text/javascript"></script>
+</head>
+
+<body>
+    <questions-tag></questions-tag>
+    <answers-tag></answers-tag>
+</body>
+
+</html>
