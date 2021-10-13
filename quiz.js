@@ -23,6 +23,7 @@ function onLoaded() {
 
     var questionTag = document.createElement('question-tag')
     questionTag.innerText = "How old are you?"
+    questionTag.setAttribute("class", "center")
     questionsTag.append(questionTag)
 
     const answersTag = document.querySelector('answers-tag')
