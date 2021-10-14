@@ -1,13 +1,15 @@
 
-/***/
+/*
+**/
 
-const questions = {
-    "how are you?": ["fine", "bad", "lol", "wrong"],
-    "2 how are you?": ["2 fine", "2 bad", "2 lol", "2 wrong"],
-}
+// q = question, a = answer(s), s = source 
+const questions = [
+    {"q": "how are you?", "a": ["fine", "bad", "lol", "wrong"], "s": "http://example.com"},
+    {"q": "2 how are you?", "a": ["2 fine", "2 bad", "2 lol", "2 wrong"], "s": "http://example.com"}
+] 
 
 function getQuestionIndex() {
-    return Math.floor(Math.random() * Object.keys(questions).length)
+    return Math.floor(Math.random() * questions.length)
 }
 
 function reset() {
@@ -92,8 +94,10 @@ function giveAnswer(event) {
 
 function onLoaded() {
     const questionIndex = getQuestionIndex()
-    const question = Object.keys(questions)[questionIndex]
-    const answers = questions[question]
+    const record = questions[questionIndex]
+    const question = record['q']
+    const answers = record['a']
+    const source = record['s']
     const correct = answers[0]
     const shuffeldAnswers = shuffle(answers)
 

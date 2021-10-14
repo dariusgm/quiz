@@ -1,14 +1,12 @@
 class AnwserTag extends HTMLElement {
   constructor() {
     super();
-    this.innerText = this.getAttribute('value');
   }
 }
 
 class QuestionTag extends HTMLElement {
   constructor() {
     super();
-    this.innerText = this.getAttribute('value');
   }
 }
 
