@@ -10,6 +10,11 @@ function getQuestionIndex() {
     return Math.floor(Math.random() * Object.keys(questions).length)
 }
 
+function reset() {
+    document.querySelector("question-tag").remove()
+    document.querySelectorAll("answer-tag").forEach(function(e) {e.remove()})
+}
+
 
 /**
  * Source: https://javascript.info/task/shuffle
@@ -42,18 +47,26 @@ function unSelect() {
 }
 
 function submitAnswer(event) {
+    submitDisable()
     const seletedAnswer = document.querySelector('answer-tag.active')
     if (seletedAnswer == null) {
         alert("please select an answer before submitting")
         return
     }
 
+    const correctAnswer = document.querySelector('question-tag').getAttribute('data')
+    const givenAnswer = seletedAnswer.innerText
+    
+    if (correctAnswer == givenAnswer) {
+        alert("correct")
+    } else {
+        alert("wrong, correct answer was: " + correctAnswer)
+    }
 
+    reset()
+    onLoaded()
 }
 
-function answerCorrect() {
-    const a = "a"
-}
 
 function submitReady() {
     const submitTag = document.querySelector('submit-tag')
@@ -88,6 +101,7 @@ function onLoaded() {
     var questionTag = document.createElement('question-tag')
     questionTag.innerText = question
     questionTag.setAttribute("class", "center")
+    questionTag.setAttribute("data", correct)
     questionsTag.append(questionTag)
 
     const answersTag = document.querySelector('answers-tag')
