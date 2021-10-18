@@ -15,6 +15,11 @@ pip install pipenv
 pyenv rehash
 echo "installing, this may take some time..."
 pipenv install --dev --python 3.9.2 --skip-lock
+
+# for generating new questions.js
+# Download from spreadsheet, than:
+cp ~/Downloads/"Data Science Questions - Tabellenblatt1.csv" data.csv
+pipenv run python3 main.py
 ```
 
 # Serving

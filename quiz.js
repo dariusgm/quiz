@@ -1,13 +1,3 @@
-
-/*
-**/
-
-// q = question, a = answer(s), s = source 
-const questions = [
-    {"q": "how are you?", "a": ["fine", "bad", "lol", "wrong"], "s": "http://example.com"},
-    {"q": "2 how are you?", "a": ["2 fine", "2 bad", "2 lol", "2 wrong"], "s": "http://example.com"}
-] 
-
 function getQuestionIndex() {
     return Math.floor(Math.random() * questions.length)
 }
@@ -26,21 +16,12 @@ function shuffle(array) {
   var  arrayCopy = [...array];
   for (let i = arrayCopy.length - 1; i > 0; i--) {
     let j = Math.floor(Math.random() * (i + 1)); // random index from 0 to i
-
-    // swap elements array[i] and array[j]
-    // we use "destructuring assignment" syntax to achieve that
-    // you'll find more details about that syntax in later chapters
-    // same can be written as:
-    // let t = array[i]; array[i] = array[j]; array[j] = t
     [arrayCopy[i], arrayCopy[j]] = [arrayCopy[j], arrayCopy[i]];
   }
 
   return arrayCopy
 }
 
-/*
-* Deselect all possible answers
-*/
 function unSelect() {
     const answers = document.querySelectorAll('answer-tag') 
     for (var i = answers.length - 1; i >= 0; i--) {
@@ -73,12 +54,14 @@ function submitAnswer(event) {
 function submitReady() {
     const submitTag = document.querySelector('submit-tag')
     submitTag.disabled = false;
+    submitTag.setAttribute("style", "color:black;")
     submitTag.addEventListener("click", submitAnswer)
 }
 
 function submitDisable() {
     const submitTag = document.querySelector('submit-tag')
     submitTag.disabled = true;
+    submitTag.setAttribute("style", "color:white;")
     submitTag.removeEventListener("click", submitAnswer)   
 }
 
@@ -100,6 +83,11 @@ function onLoaded() {
     const source = record['s']
     const correct = answers[0]
     const shuffeldAnswers = shuffle(answers)
+
+    const sourceTag = document.querySelector('source-tag a')
+    sourceTag.href = source
+    sourceTag.target = "_blank"
+    sourceTag.innerText = source
 
     const questionsTag = document.querySelector('questions-tag')
     var questionTag = document.createElement('question-tag')

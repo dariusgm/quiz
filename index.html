@@ -4,18 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="style.css">
-    <script src="question-tag.js"></script>
-    <script src="answer-tag.js"></script>
-    <script src="quiz.js"></script>
-    <script type="text/javascript"></script>
+    <script type="text/javascript" src="questions.js"></script>
+    <script type="text/javascript" src="quiz.js"></script>
 </head>
 
 <body>
+    <quiz-tag>
     <div class="center">
+        <source-tag>Source: <a href="http://example.com" target="_blank">http://example.com</a></source-tag>
+
         <questions-tag></questions-tag>
         <answers-tag class="center" style="flex-direction: row;"></answers-tag>
         <submit-tag>Submit</submit-tag>    
     </div>
+    </quiz-tag>
 </body>
 
 </html>

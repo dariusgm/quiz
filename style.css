@@ -34,12 +34,12 @@
       font-family: arial;
       color: white;
       text-align: center;
+      z-index:1;
       box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.75);
     }
     
     answer-tag.active {
         background: rgba(171, 145, 68, 1);
-        font-size: 1.5em;
     }
 
     answers-tag {
@@ -61,15 +61,19 @@
       box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.75);
     }
 
-    h3 {
-      padding: 2em 0;
-      background: white;
-      color: black;
+    source-tag {
+     padding-top: 1em;
+     padding-bottom: 1em;
+     margin-top: 1em;
+     margin-bottom: -1em;
+     z-index: 1;
+     border-radius: 1em;
+     color: black;
+     background-color: white;
+     font-family: arial;
+     text-align: center;
+     box-shadow: 2px 2px 5px 0px rgb(0 0 0 / 100%);
     }
 
-    p {
-      font-size: 24px;
-      font-weight: bold;
-      text-transform: uppercase;
-    }
+
    
