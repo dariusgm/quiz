@@ -4,13 +4,23 @@ import json
 import os
 import pandas as pd
 
+def length(k, s):
+    if len(s) > 35:
+        print(f"WARN: {k} to long")
+
 def process(row):
-    result = {"s": row['source'], "q": row['question'], "a": [row['answer'], row['wrong1']]}
+    result = {"s": row['source'], "q": row['question'], "a": [row['answer'], ]}
+
+    length("answer", row['answer'])
+    length("wrong1", row['wrong1'])
+
     if not pd.isnull(row['wrong2']):
         result['a'].append(row['wrong2'])
+        length("wrong2", row['wrong2'])
 
     if not pd.isnull(row['wrong3']):
         result['a'].append(row['wrong3'])
+        length("wrong3", row['wrong3'])
 
     return result
 
