@@ -9,7 +9,7 @@ def length(k, s):
         print(f"WARN: {k} to long")
 
 def process(row):
-    result = {"s": row['source'], "q": row['question'], "a": [row['answer'], ]}
+    result = {"s": row['source'], "q": row['question'], "a": [row['answer'], row['wrong1']]}
 
     length("answer", row['answer'])
     length("wrong1", row['wrong1'])
@@ -27,7 +27,7 @@ def process(row):
 def main():
     stats = {}
 
-    with open('questions2.js', 'wt') as question_handler:
+    with open('questions.js', 'wt') as question_handler:
         question_handler.write("""
 // q = question, a = answer(s), s = source 
 window.questions = [
