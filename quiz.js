@@ -37,7 +37,9 @@ function submitAnswer(event) {
         return
     }
 
-    const correctAnswer = document.querySelector('question-tag').getAttribute('data')
+    const questionTag = document.querySelector('question-tag')
+    const correctAnswer = questionTag.getAttribute('answer')
+    const answerId = questionTag.getAttribute('answer-id')
     const givenAnswer = seletedAnswer.innerText
     
     if (correctAnswer == givenAnswer) {
@@ -45,6 +47,9 @@ function submitAnswer(event) {
     } else {
         alert("wrong, correct answer was: " + correctAnswer)
     }
+
+
+    window.myQuestions.splice(answerId, 1)
 
     reset()
     onLoaded()
@@ -77,7 +82,7 @@ function giveAnswer(event) {
 
 function onLoaded() {
     const questionIndex = getQuestionIndex()
-    const record = questions[questionIndex]
+    const record = myQuestions[questionIndex]
     const question = record['q']
     const answers = record['a']
     const source = record['s']
@@ -93,7 +98,8 @@ function onLoaded() {
     var questionTag = document.createElement('question-tag')
     questionTag.innerText = question
     questionTag.setAttribute("class", "center")
-    questionTag.setAttribute("data", correct)
+    questionTag.setAttribute("answer", correct)
+    questionTag.setAttribute("answer-id", questionIndex)
     questionsTag.append(questionTag)
 
     const answersTag = document.querySelector('answers-tag')
@@ -108,5 +114,6 @@ function onLoaded() {
 
 
 document.addEventListener("DOMContentLoaded", function(event) {
+    window.myQuestions = [...questions];
     onLoaded();           
 });
