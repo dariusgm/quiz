@@ -1,3 +1,9 @@
+function updateScore(correct, wrong, left) {
+    document.querySelector('correct-tag').innerText = "Correct: " + correct
+    document.querySelector('wrong-tag').innerText = "Wrong: " + wrong
+    document.querySelector('left-tag').innerText = "Left: " + left
+}
+
 function getQuestionIndex() {
     return Math.floor(Math.random() * questions.length)
 }
@@ -43,14 +49,14 @@ function submitAnswer(event) {
     const givenAnswer = seletedAnswer.innerText
     
     if (correctAnswer == givenAnswer) {
-        alert("correct")
+        window.pos = window.pos + 1
     } else {
-        alert("wrong, correct answer was: " + correctAnswer)
+        window.neg = window.neg + 1    
     }
 
 
     window.myQuestions.splice(answerId, 1)
-
+    updateScore(window.pos, window.neg, window.myQuestions.length)
     reset()
     onLoaded()
 }
@@ -115,5 +121,9 @@ function onLoaded() {
 
 document.addEventListener("DOMContentLoaded", function(event) {
     window.myQuestions = [...questions];
+    window.pos = 0
+    window.neg = 0
+    document.querySelector('total-tag').innerText = "Total: " + questions.length
+    updateScore(window.pos, window.neg, window.myQuestions.length)
     onLoaded();           
 });
