@@ -2,7 +2,7 @@
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      align-content: space-around;
+      align-content: center;
       flex-direction: column;
     }
 
@@ -49,8 +49,7 @@
 
     submit-tag {
       cursor: pointer;
-      padding-top: 1em;
-      padding-bottom: 1em;
+      padding: 1em;
       margin-top: 1em;
       border-radius: 1em;
       font-size: 2em;
@@ -62,8 +61,7 @@
     }
 
     source-tag {
-     padding-top: 1em;
-     padding-bottom: 1em;
+     padding: 1em;
      margin-top: 1em;
      margin-bottom: -1em;
      z-index: 1;
