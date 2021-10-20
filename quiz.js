@@ -3,9 +3,9 @@ function updateScore(correct, wrong, left) {
     document.querySelector('wrong-tag').innerText = "Wrong: " + wrong
     document.querySelector('left-tag').innerText = "Left: " + left
 }
-
+    
 function getQuestionIndex() {
-    return Math.floor(Math.random() * questions.length)
+    return Math.floor(Math.random() * (myQuestions.length - 1))
 }
 
 function reset() {
@@ -88,6 +88,7 @@ function giveAnswer(event) {
 
 function onLoaded() {
     const questionIndex = getQuestionIndex()
+    console.log(questionIndex)
     const record = myQuestions[questionIndex]
     const question = record['q']
     const answers = record['a']
