@@ -35,6 +35,37 @@ function unSelect() {
     }       
 }
 
+function nextQuestion() {
+    updateScore(window.pos, window.neg, window.myQuestions.length)
+    reset()
+    onLoaded()
+    document.querySelector('submit-tag').removeAttribute("style")
+    document.querySelector('next-tag').setAttribute("style", "display:none;")
+}
+
+function highlightCorrectAnwer(correctAnswer) {
+    const allAnswers = document.querySelectorAll('answer-tag') 
+
+    for (var i = allAnswers.length - 1; i >= 0; i--) {
+        
+        allAnswers[i].removeAttribute('class')
+        allAnswers[i].removeEventListener('click', giveAnswer)
+
+        if (allAnswers[i].innerText == correctAnswer) {
+            allAnswers[i].setAttribute('class', 'blink')
+        }
+    }
+    
+}
+
+function increaseAnswerCount(correct) {
+    if (correct) {
+        window.pos = window.pos + 1
+    } else { 
+        window.neg = window.neg + 1   
+    }
+}
+
 function submitAnswer(event) {
     submitDisable()
     const seletedAnswer = document.querySelector('answer-tag.active')
@@ -47,18 +78,13 @@ function submitAnswer(event) {
     const correctAnswer = questionTag.getAttribute('answer')
     const answerId = questionTag.getAttribute('answer-id')
     const givenAnswer = seletedAnswer.innerText
-    
-    if (correctAnswer == givenAnswer) {
-        window.pos = window.pos + 1
-    } else {
-        window.neg = window.neg + 1    
-    }
-
+    highlightCorrectAnwer(correctAnswer)
+    increaseAnswerCount(correctAnswer == givenAnswer)
 
     window.myQuestions.splice(answerId, 1)
-    updateScore(window.pos, window.neg, window.myQuestions.length)
-    reset()
-    onLoaded()
+
+    document.querySelector('submit-tag').setAttribute("style", "display:none")
+    nextReady()
 }
 
 
@@ -76,6 +102,18 @@ function submitDisable() {
     submitTag.removeEventListener("click", submitAnswer)   
 }
 
+function nextReady() {
+    const nextTag = document.querySelector('next-tag')
+    nextTag.disabled = false;
+    nextTag.setAttribute("style", "")    
+}
+
+function nextDisable() {
+    const nextTag = document.querySelector('next-tag')
+    nextTag.disabled = true
+    nextTag.setAttribute("style", "display:none")
+}
+
 
 
 function giveAnswer(event) {
@@ -87,8 +125,9 @@ function giveAnswer(event) {
 
 
 function onLoaded() {
+    nextDisable()
+    document.querySelector('submit-tag').removeAttribute('style')
     const questionIndex = getQuestionIndex()
-    console.log(questionIndex)
     const record = myQuestions[questionIndex]
     const question = record['q']
     const answers = record['a']
@@ -126,5 +165,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
     window.neg = 0
     document.querySelector('total-tag').innerText = "Total: " + questions.length
     updateScore(window.pos, window.neg, window.myQuestions.length)
-    onLoaded();           
+    onLoaded();
+    document.querySelector('next-tag').addEventListener("click", nextQuestion)           
 });
