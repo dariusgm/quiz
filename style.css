@@ -16,7 +16,6 @@ question-tag {
     width: 30rem;
     height: 20rem;
     background-color: lightgray;
-    
     flex-direction: column;
     align-items: center;
     justify-content: center;
