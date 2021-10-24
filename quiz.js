@@ -1,16 +1,69 @@
-function updateScore(correct, wrong, left) {
-    document.querySelector('correct-tag').innerText = "Correct: " + correct
-    document.querySelector('wrong-tag').innerText = "Wrong: " + wrong
-    document.querySelector('left-tag').innerText = "Left: " + left
+function $(selector) {
+    return document.querySelector(selector)
 }
+
+function correctTag() {
+    return $('correct-tag')
+}
+
+function wrongTag() {
+    return $('wrong-tag')
+}
+
+function leftTag() {
+    return $('left-tag')
+}
+
+function questionTag() {
+    return $("question-tag")
+}
+
+function questionsTag() {
+    return $("questions-tag")
+}
+
+function answerTags() {
+    return document.querySelectorAll("answer-tag")
+}
+
+function answersTag() {
+    return $("answers-tag")
+}
+
+function submitTag() {
+    return $('submit-tag')
+}
+
+function totalTag() {
+    return $('total-tag')
+}
+
+
+function nextTag() {
+    return $("next-tag")
+}
+
+function updateScore() {
+    const questions = questionsTag()
+    const total = questions.getAttribute("data-total")
+    const correct = questions.getAttribute("data-pos")
+    const wrong = questions.getAttribute("data-neg")
+    const left = total - correct - wrong
+
+    correctTag().innerText = "Correct: " + correct
+    wrongTag().innerText = "Wrong: " + wrong
+    leftTag().innerText = "Left: " + left
+    totalTag().innerText = "Total : " + total
+}
+
     
 function getQuestionIndex() {
     return Math.floor(Math.random() * (myQuestions.length - 1))
 }
 
 function reset() {
-    document.querySelector("question-tag").remove()
-    document.querySelectorAll("answer-tag").forEach(function(e) {e.remove()})
+    questionTag().remove()
+    answerTags().forEach(function(e) {e.remove()})
 }
 
 
@@ -29,22 +82,22 @@ function shuffle(array) {
 }
 
 function unSelect() {
-    const answers = document.querySelectorAll('answer-tag') 
+    const answers = answerTags() 
     for (var i = answers.length - 1; i >= 0; i--) {
         answers[i].setAttribute('class', '')
     }       
 }
 
 function nextQuestion() {
-    updateScore(window.pos, window.neg, window.myQuestions.length)
+    updateScore()
     reset()
     onLoaded()
-    document.querySelector('submit-tag').removeAttribute("style")
-    document.querySelector('next-tag').setAttribute("style", "display:none;")
+    submitTag().removeAttribute("style")
+    nextTag().setAttribute("style", "display:none;")
 }
 
 function highlightCorrectAnwer(correctAnswer) {
-    const allAnswers = document.querySelectorAll('answer-tag') 
+    const allAnswers = answerTags() 
 
     for (var i = allAnswers.length - 1; i >= 0; i--) {
         
@@ -59,10 +112,11 @@ function highlightCorrectAnwer(correctAnswer) {
 }
 
 function increaseAnswerCount(correct) {
+    const question = questionsTag()
     if (correct) {
-        window.pos = window.pos + 1
+        question.setAttribute("data-pos", parseInt(question.getAttribute("data-pos")) + 1)
     } else { 
-        window.neg = window.neg + 1   
+        question.setAttribute("data-neg", parseInt(question.getAttribute("data-neg")) + 1)       
     }
 }
 
@@ -74,44 +128,45 @@ function submitAnswer(event) {
         return
     }
 
-    const questionTag = document.querySelector('question-tag')
-    const correctAnswer = questionTag.getAttribute('answer')
-    const answerId = questionTag.getAttribute('answer-id')
+    const question = questionsTag()
+    const correctAnswer = question.getAttribute('answer')
+    const answerId = question.getAttribute('answer-id')
     const givenAnswer = seletedAnswer.innerText
     highlightCorrectAnwer(correctAnswer)
     increaseAnswerCount(correctAnswer == givenAnswer)
 
     window.myQuestions.splice(answerId, 1)
 
-    document.querySelector('submit-tag').setAttribute("style", "display:none")
+    submitTag().setAttribute("style", "display:none")
     nextReady()
+    updateScore()
 }
 
 
 function submitReady() {
-    const submitTag = document.querySelector('submit-tag')
-    submitTag.disabled = false;
-    submitTag.setAttribute("style", "color:black;")
-    submitTag.addEventListener("click", submitAnswer)
+    const submit = submitTag()
+    submit.disabled = false;
+    submit.setAttribute("style", "color:black;")
+    submit.addEventListener("click", submitAnswer)
 }
 
 function submitDisable() {
-    const submitTag = document.querySelector('submit-tag')
-    submitTag.disabled = true;
-    submitTag.setAttribute("style", "color:white;")
-    submitTag.removeEventListener("click", submitAnswer)   
+    const submit = submitTag()
+    submit.disabled = true;
+    submit.setAttribute("style", "color:white;")
+    submit.removeEventListener("click", submitAnswer)   
 }
 
 function nextReady() {
-    const nextTag = document.querySelector('next-tag')
-    nextTag.disabled = false;
-    nextTag.setAttribute("style", "")    
+    const next = nextTag()
+    next.disabled = false;
+    next.setAttribute("style", "")    
 }
 
 function nextDisable() {
-    const nextTag = document.querySelector('next-tag')
-    nextTag.disabled = true
-    nextTag.setAttribute("style", "display:none")
+    const next = nextTag()
+    next.disabled = true
+    next.setAttribute("style", "display:none")
 }
 
 
@@ -126,7 +181,7 @@ function giveAnswer(event) {
 
 function onLoaded() {
     nextDisable()
-    document.querySelector('submit-tag').removeAttribute('style')
+    submitTag().removeAttribute('style')
     const questionIndex = getQuestionIndex()
     const record = myQuestions[questionIndex]
     const question = record['q']
@@ -140,31 +195,33 @@ function onLoaded() {
     sourceTag.target = "_blank"
     sourceTag.innerText = source
 
-    const questionsTag = document.querySelector('questions-tag')
+    const questions = questionsTag()
     var questionTag = document.createElement('question-tag')
     questionTag.innerText = question
     questionTag.setAttribute("class", "center")
-    questionTag.setAttribute("answer", correct)
-    questionTag.setAttribute("answer-id", questionIndex)
-    questionsTag.append(questionTag)
+    questions.setAttribute("answer", correct)
+    questions.setAttribute("answer-id", questionIndex)
+    questions.append(questionTag)
 
-    const answersTag = document.querySelector('answers-tag')
+    const answersT = answersTag()
 
     for (var i = shuffeldAnswers.length - 1; i >= 0; i--) {
-        var answerTag = document.createElement('answer-tag')
-        answerTag.addEventListener("click", giveAnswer)
-        answerTag.innerText = shuffeldAnswers[i]
-        answersTag.append(answerTag)
+        var answer = document.createElement('answer-tag')
+        answer.addEventListener("click", giveAnswer)
+        answer.innerText = shuffeldAnswers[i]
+        answersT.append(answer)
     }
 }
 
 
 document.addEventListener("DOMContentLoaded", function(event) {
     window.myQuestions = [...questions];
-    window.pos = 0
-    window.neg = 0
-    document.querySelector('total-tag').innerText = "Total: " + questions.length
-    updateScore(window.pos, window.neg, window.myQuestions.length)
+    const questionsTag = document.querySelector('questions-tag')
+    questionsTag.setAttribute("data-pos","0")
+    questionsTag.setAttribute("data-neg","0")
+    questionsTag.setAttribute("data-left", window.questions.length)
+    questionsTag.setAttribute("data-total", window.questions.length) 
+    updateScore()
     onLoaded();
-    document.querySelector('next-tag').addEventListener("click", nextQuestion)           
+    nextTag().addEventListener("click", nextQuestion)           
 });
