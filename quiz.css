@@ -86,8 +86,7 @@ source-tag {
 }
 
 score-tag {
- position: absolute;
- top: 6em;
+ position: relative;
  right: 1em;
  padding: 1em;
  margin-top: 1em;
