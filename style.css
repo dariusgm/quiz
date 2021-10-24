@@ -135,3 +135,13 @@ total-tag {
     background-color: green;
   }
 }
+
+
+table, th, td {
+  border: 1px solid black;
+  display: span;
+}
+
+table {
+  margin-right: 8em;
+}

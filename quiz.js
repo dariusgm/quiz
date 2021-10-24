@@ -2,6 +2,10 @@ function $(selector) {
     return document.querySelector(selector)
 }
 
+function scoreTag() {
+    return $('score-tag')
+}
+
 function correctTag() {
     return $('correct-tag')
 }
@@ -179,9 +183,73 @@ function giveAnswer(event) {
 }
 
 
+function showAll(event) {
+    const body = document.querySelector("body")
+    
+    const wuhu = document.createElement("div")
+    var message = "You have finished all questions, hit reload to try again, or look at all answers directly."
+    wuhu.innerText = message + " The first answer is the correct Answer. Thank you for using the quiz!"
+    const score = scoreTag().cloneNode(true)
+
+    Array.from(body.children).forEach(function (e) {e.remove()})
+    
+    body.append(wuhu)
+    body.append(score)
+
+    const table = document.createElement("table")
+    const headerRow = document.createElement("tr")
+    const sourceCol = document.createElement("th")
+    sourceCol.innerText = "Source"
+    headerRow.append(sourceCol)
+
+    const questionCol = document.createElement("th")
+    questionCol.innerText = "Question"
+    headerRow.append(questionCol)
+
+    const correctCol = document.createElement("th")
+    correctCol.innerText = "Correct"
+    headerRow.append(correctCol)
+
+    for (var i = 1; i < 4; i++) {
+        const wrong = document.createElement("th")
+        wrong.innerText = "Wrong " +  i
+        headerRow.append(wrong)    
+    }
+
+    table.append(headerRow) 
+
+    for (var i = window.questions.length - 1; i >= 0; i--) {
+        const q = window.questions[i]
+        const row = document.createElement("tr")
+        const source = document.createElement("td")
+        source.innerText = q['s']
+        row.append(source)
+
+        const question = document.createElement("td")
+        question.innerText = q['q']
+        row.append(question)
+
+        for (var k = q['a'].length - 1; k >= 0; k--) {
+            const answer = document.createElement("td")
+            answer.innerText = q['a'][k]
+            row.append(answer)
+        }
+
+        table.append(row)
+    }
+    body.append(table)
+
+}
+
+
 function onLoaded() {
     nextDisable()
     submitTag().removeAttribute('style')
+    if (myQuestions.length == 0) {
+        showAll()
+        return
+    }
+
     const questionIndex = getQuestionIndex()
     const record = myQuestions[questionIndex]
     const question = record['q']
