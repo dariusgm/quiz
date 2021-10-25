@@ -218,7 +218,7 @@ function showAll(event) {
 
     table.append(headerRow) 
 
-    for (var i = window.questions.length - 1; i >= 0; i--) {
+    for (var i = 0 ; i < window.questions.length; i++) {
         const q = window.questions[i]
         const row = document.createElement("tr")
         const source = document.createElement("td")
@@ -229,7 +229,7 @@ function showAll(event) {
         question.innerText = q['q']
         row.append(question)
 
-        for (var k = q['a'].length - 1; k >= 0; k--) {
+        for (var k = 0; k < q['a'].length; k++) {
             const answer = document.createElement("td")
             answer.innerText = q['a'][k]
             row.append(answer)
