@@ -25,7 +25,7 @@ pipenv run python3 main.py
 # Serving
 ## Native
 
-In case you want to just serve the model locally, use the build-in python webserver:
+In case you want to just serve the quiz locally, use the build-in python webserver:
 `pipenv run python3 -m http.server 8080 --bind localhost`
 [http://localhost:8080](http://localhost:8080)
 
