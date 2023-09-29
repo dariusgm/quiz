@@ -8,13 +8,13 @@ Install `pyenv` on your platform, see: https://github.com/pyenv/pyenv
 
 
 ```bash
-pyenv install 3.9.2
-pyenv local 3.9.2
+pyenv install 3.11.1
+pyenv local 3.11.1
 python3 -m pip install --upgrade pip
-pip install pipenv
+pip install poetry 
 pyenv rehash
 echo "installing, this may take some time..."
-pipenv install --dev --python 3.9.2 --skip-lock
+poetry install
 
 # for generating new questions.js
 # Download from spreadsheet, than:
